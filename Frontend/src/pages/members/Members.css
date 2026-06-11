@@ -1,0 +1,87 @@
+.members-card {
+  background: white;
+
+  border-radius: 10px;
+
+  padding: 20px;
+
+  border: 1px solid #e5e7eb;
+}
+
+.members-header {
+  margin-bottom: 20px;
+}
+
+.members-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.members-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.members-table thead tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.members-table th {
+  text-align: left;
+
+  padding: 14px 10px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #6b7280;
+}
+
+.members-table td {
+  padding: 16px 10px;
+
+  border-bottom: 1px solid #f1f5f9;
+
+  font-size: 14px;
+
+  color: #374151;
+}
+
+.status-active {
+  color: #111827;
+}
+.activate-btn {
+  background: #22c55e;
+  color: white;
+
+  border: none;
+  padding: 8px 14px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+.activate-btn:hover {
+  opacity: 0.9;
+}
+.deactivate-btn {
+  background: #fff5f5;
+
+  border: 1px solid #fecaca;
+
+  color: #ef4444;
+
+  padding: 6px 12px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  font-size: 12px;
+}
+
+.deactivate-btn:hover {
+  background: #fee2e2;
+}
