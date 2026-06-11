@@ -128,7 +128,7 @@ Backend/
 ├── auth.py
 ├── app.py
 └── employees.db
-
+```
 <img width="1920" height="913" alt="Screenshot 2026-06-11 at 17-16-47 Employee Management API - Swagger UI" src="https://github.com/user-attachments/assets/1fcd922e-3e13-458c-83c1-fe1ad6c74ac3" />
 <img width="1920" height="913" alt="Screenshot 2026-06-11 at 17-16-25 employee-management" src="https://github.com/user-attachments/assets/df1937c0-1b1d-48cc-adae-df4a2d004ded" />
 <img width="1920" height="913" alt="Screenshot 2026-06-11 at 17-16-37 employee-management" src="https://github.com/user-attachments/assets/d162e512-1deb-4e56-a043-3c91265080b2" />
