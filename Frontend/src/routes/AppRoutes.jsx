@@ -4,7 +4,8 @@ import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 
 import Members from "../pages/members/Members";
-
+import EmployeeList from "../pages/employees/EmployeeList";
+import EmployeeProfile from "../pages/employees/EmployeeProfile";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
 
 function AppRoutes() {
@@ -21,7 +22,23 @@ function AppRoutes() {
         path="/login"
         element={<Login />}
       />
+      <Route
+        path="/employees"
+        element={
+          <ProtectedRoute>
+            <EmployeeList />
+          </ProtectedRoute>
+        }
+      />
 
+      <Route
+        path="/employees/:id"
+        element={
+          <ProtectedRoute>
+            <EmployeeProfile />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/signup"
         element={<Signup />}
@@ -45,6 +62,7 @@ function AppRoutes() {
         element={<Navigate to="/login" replace />}
       />
     </Routes>
+
   );
 }
 

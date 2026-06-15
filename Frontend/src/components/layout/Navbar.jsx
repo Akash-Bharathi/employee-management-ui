@@ -2,10 +2,15 @@ import { FaBars, FaUsers, FaClipboardList, FaBuilding, FaFileAlt, FaBell, FaMoon
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import "./Navbar.css";
+import { useAuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
-function Navbar({ selectedCompany, setSelectedCompany }) {
+function Navbar({
+  selectedCompany,
+  setSelectedCompany,
+  toggleSidebar,
+}) {
   const navigate = useNavigate();
-
+  const { user } = useAuthContext();
   const { logout } = useAuth();
   const handleLogout = () => {
     logout();
@@ -21,7 +26,10 @@ function Navbar({ selectedCompany, setSelectedCompany }) {
 
       <div className="navbar-left">
 
-        <button className="menu-btn">
+        <button
+          className="menu-btn"
+          onClick={toggleSidebar}
+        >
           <FaBars />
         </button>
 
@@ -51,7 +59,7 @@ function Navbar({ selectedCompany, setSelectedCompany }) {
             setSelectedCompany(null)
           }
         >
-          Overview
+          Employees
         </button>
 
         <button
@@ -136,10 +144,13 @@ function Navbar({ selectedCompany, setSelectedCompany }) {
         <div className="profile">
 
           <div className="avatar">
-            M
+            {user?.fullname?.charAt(0) || "U"}
           </div>
 
-          <span>miy</span>
+          <span>
+            {user?.fullname || "User"}
+          </span>
+
 
         </div>
 

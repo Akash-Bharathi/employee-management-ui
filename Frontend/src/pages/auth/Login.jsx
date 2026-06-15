@@ -102,7 +102,7 @@ function Login() {
     toast.success("Login successful");
 
     setTimeout(() => {
-      navigate("/members");
+      navigate("/employees");
     }, 800);
   };
   return (

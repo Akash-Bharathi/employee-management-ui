@@ -1,0 +1,59 @@
+.employee-page {
+  width: 100%;
+}
+
+.employee-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.employee-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.add-employee-btn {
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.employee-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.employee-table th {
+  text-align: left;
+  padding: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.employee-table td {
+  padding: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.employee-row {
+  cursor: pointer;
+}
+
+.employee-row:hover {
+  background: #f8fafc;
+}
+
+.status-active {
+  color: #16a34a;
+  font-weight: 600;
+}

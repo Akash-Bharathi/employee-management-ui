@@ -4,17 +4,14 @@ from fastapi import HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 from sqlalchemy.orm import Session
-
 from database import Base
 from database import engine
 from database import get_db
 from schemas import LoginRequest
 from schemas import LoginResponse
-
 from auth import verify_password
 from auth import create_access_token
 from models import User
-
 from schemas import SignupRequest
 from schemas import UserResponse
 from typing import Optional

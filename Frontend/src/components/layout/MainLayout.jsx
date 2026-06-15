@@ -1,26 +1,67 @@
+import { useState } from "react";
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 
 function MainLayout({
   children,
   selectedCompany,
   setSelectedCompany,
 }) {
+  const [isSidebarOpen, setIsSidebarOpen] =
+    useState(false);
+
   return (
     <>
-      <Navbar
-        selectedCompany={selectedCompany}
-        setSelectedCompany={setSelectedCompany}
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={() =>
+          setIsSidebarOpen(false)
+        }
       />
 
-      <main
+      {isSidebarOpen && (
+        <div
+          onClick={() =>
+            setIsSidebarOpen(false)
+          }
+          style={{
+            position: "fixed",
+            inset: 0,
+            background:
+              "rgba(0,0,0,0.4)",
+            zIndex: 998,
+          }}
+        />
+      )}
+
+      <div
         style={{
           background: "#f5f7fb",
-          minHeight: "calc(100vh - 64px)",
-          padding: "20px",
+          minHeight: "100vh",
         }}
       >
-        {children}
-      </main>
+        <Navbar
+          selectedCompany={
+            selectedCompany
+          }
+          setSelectedCompany={
+            setSelectedCompany
+          }
+          toggleSidebar={() =>
+            setIsSidebarOpen(
+              !isSidebarOpen
+            )
+          }
+        />
+
+        <main
+          style={{
+            padding: "20px",
+          }}
+        >
+          {children}
+        </main>
+      </div>
     </>
   );
 }
