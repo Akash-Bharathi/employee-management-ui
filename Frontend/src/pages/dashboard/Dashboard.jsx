@@ -20,14 +20,7 @@ import {
 } from "recharts";
 function Dashboard() {
     const { user } = useAuthContext();
-    // const attendanceData = [
-    //     { month: "Jan", attendance: 88 },
-    //     { month: "Feb", attendance: 91 },
-    //     { month: "Mar", attendance: 89 },
-    //     { month: "Apr", attendance: 94 },
-    //     { month: "May", attendance: 92 },
-    //     { month: "Jun", attendance: 96 },
-    // ];
+  
     const departmentData = [
         {
             department: "IT",
