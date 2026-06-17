@@ -157,6 +157,7 @@
   font-weight: 600;
 }
 
+
 .employee-item {
   display: flex;
   align-items: center;
@@ -171,7 +172,65 @@
 .employee-item:last-child {
   border-bottom: none;
 }
+.recent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
+  margin-bottom: 16px;
+}
+
+.view-all-btn {
+  border: none;
+  background: transparent;
+
+  color: #2563eb;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.employee-item {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.employee-item:last-child {
+  border-bottom: none;
+}
+
+.employee-avatar {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+}
+
+.employee-info h4 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.employee-info p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
 .employee-avatar {
   width: 42px;
   height: 42px;

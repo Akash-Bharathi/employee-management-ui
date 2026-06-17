@@ -1,6 +1,8 @@
 import MainLayout from "../../components/layout/MainLayout";
 import { useAuthContext } from "../../context/AuthContext";
 import "./Dashboard.css";
+import { useEmployees } from "../../context/EmployeeContext";
+import { useNavigate } from "react-router-dom";
 import {
     ResponsiveContainer,
     BarChart,
@@ -84,6 +86,8 @@ function Dashboard() {
         { name: '06-15', absent: 4, onLeave: 6, present: 13 },
         { name: '06-16', absent: 2, onLeave: 4, present: 17 },
     ];
+    const { employees } = useEmployees();
+    const navigate = useNavigate();
     const roleData = [
         {
             role: "Dev",
@@ -424,48 +428,51 @@ function Dashboard() {
                         </div>
                     </div>
                     <div className="chart-card">
+
                         <div className="recent-header">
+
                             <h3>Recent Employees</h3>
 
-                            <button className="view-all-btn">
+                            <button
+                                className="view-all-btn"
+                                onClick={() =>
+                                    navigate("/employees")
+                                }
+                            >
                                 View All
                             </button>
+
                         </div>
 
-                        <div className="employee-item">
-                            <div className="employee-avatar">
-                                SU
-                            </div>
+                        {employees
+                            ?.slice(0, 4)
+                            .map((employee) => (
+                                <div
+                                    key={employee.id}
+                                    className="employee-item"
+                                >
+                                    <div className="employee-avatar">
+                                        {employee.name
+                                            ?.charAt(0)
+                                            .toUpperCase()}
+                                    </div>
 
-                            <div>
-                                <h4>Standard User</h4>
-                                <p>Employee</p>
-                            </div>
-                        </div>
+                                    <div className="employee-info">
 
-                        <div className="employee-item">
-                            <div className="employee-avatar">
-                                I
-                            </div>
+                                        <h4>{employee.name}</h4>
 
-                            <div>
-                                <h4>ironman</h4>
-                                <p>hero</p>
-                            </div>
-                        </div>
+                                        <p>
+                                            {employee.role} •{" "}
+                                            {employee.department}
+                                        </p>
 
-                        <div className="employee-item">
-                            <div className="employee-avatar">
-                                D
-                            </div>
+                                    </div>
 
-                            <div>
-                                <h4>dfer</h4>
-                                <p>sales executive</p>
-                            </div>
-                        </div>
+                                </div>
+                            ))}
 
                     </div>
+
 
                 </div>
 
