@@ -1,0 +1,126 @@
+/* ==========================
+   DARK THEME
+========================== */
+
+body.dark-theme {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+/* Main page background */
+
+body.dark-theme main {
+  background: #0f172a !important;
+}
+
+/* Navbar */
+
+body.dark-theme .navbar {
+  background: #1e293b;
+  border-bottom: 1px solid #334155;
+}
+
+/* Sidebar */
+
+body.dark-theme .sidebar {
+  background: #1e293b;
+  border-right: 1px solid #334155;
+}
+
+body.dark-theme .sidebar-header {
+  border-bottom: 1px solid #334155;
+}
+
+body.dark-theme .sidebar-link {
+  color: #cbd5e1;
+}
+
+body.dark-theme .sidebar-link:hover {
+  background: #334155;
+}
+
+body.dark-theme .sidebar-link.active {
+  background: #2563eb;
+  color: white;
+}
+
+/* Cards */
+
+body.dark-theme .chart-card,
+body.dark-theme .stat-card,
+body.dark-theme .employee-card,
+body.dark-theme .profile-header,
+body.dark-theme .info-card,
+body.dark-theme .leave-card,
+body.dark-theme .leave-summary,
+body.dark-theme .calendar-card,
+body.dark-theme .analytics-card {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+/* Tables */
+
+body.dark-theme table {
+  background: #1e293b;
+}
+
+body.dark-theme th {
+  background: #334155;
+  color: white;
+}
+
+body.dark-theme td {
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+/* Inputs */
+
+body.dark-theme input,
+body.dark-theme select,
+body.dark-theme textarea {
+  background: #334155;
+  color: white;
+  border: 1px solid #475569;
+}
+
+body.dark-theme input::placeholder {
+  color: #94a3b8;
+}
+
+/* Modals */
+
+body.dark-theme .employee-modal {
+  background: #1e293b;
+  color: white;
+}
+
+/* Headings */
+
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4 {
+  color: #f8fafc;
+}
+
+/* Paragraphs */
+
+body.dark-theme p,
+body.dark-theme span,
+body.dark-theme label {
+  color: #cbd5e1;
+}
+
+/* Navbar buttons */
+
+body.dark-theme .icon-btn {
+  background: #334155;
+  color: white;
+}
+
+body.dark-theme .logout-btn {
+  background: #dc2626;
+}

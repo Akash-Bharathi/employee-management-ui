@@ -102,7 +102,11 @@ function Login() {
     toast.success("Login successful");
 
     setTimeout(() => {
-      navigate("/employees");
+      if (result.data.user.role === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate("/Userdashboard");
+      }
     }, 800);
   };
   return (

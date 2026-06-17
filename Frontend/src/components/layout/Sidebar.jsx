@@ -26,7 +26,7 @@ function Sidebar({
         {
             label: "Dashboard",
             icon: <FaChartPie />,
-            path: "/members",
+            path: "/dashboard",
         },
         {
             label: "Employees",
@@ -61,7 +61,7 @@ function Sidebar({
         {
             label: "Settings",
             icon: <FaCog />,
-            path: "/settings",
+            path: "/Subscription",
         },
     ];
 

@@ -30,7 +30,9 @@ export function AuthProvider({ children }) {
 
     setLoading(false);
   }, []);
-
+  const [theme, setTheme] = useState(
+  localStorage.getItem("theme") || "light"
+);
   const login = async (credentials) => {
     const result = await loginUser(credentials);
 

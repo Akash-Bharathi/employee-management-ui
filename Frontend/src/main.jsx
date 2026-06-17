@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
+import { ThemeProvider } from "./context/ThemeContext";
 import "./index.css";
 
 import { AuthProvider } from "./context/AuthContext";
@@ -13,6 +14,8 @@ ReactDOM.createRoot(
 ).render(
   <React.StrictMode>
     <BrowserRouter>
+    <ThemeProvider>
+
       <AuthProvider>
         <EmployeeProvider>
           <App />
@@ -25,6 +28,8 @@ ReactDOM.createRoot(
           />
         </EmployeeProvider>
       </AuthProvider>
+      </ThemeProvider>
+
     </BrowserRouter>
   </React.StrictMode>
 );

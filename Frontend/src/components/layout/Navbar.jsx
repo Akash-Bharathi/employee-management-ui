@@ -1,4 +1,14 @@
-import { FaBars, FaUsers, FaClipboardList, FaBuilding, FaFileAlt, FaBell, FaMoon } from "react-icons/fa";
+import {
+  FaBars,
+  FaUsers,
+  FaClipboardList,
+  FaBuilding,
+  FaFileAlt,
+  FaBell,
+  FaMoon,
+  FaSun,
+} from "react-icons/fa";
+import { useTheme } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import "./Navbar.css";
@@ -12,6 +22,10 @@ function Navbar({
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const { logout } = useAuth();
+  const {
+    darkMode,
+    toggleTheme,
+  } = useTheme();
   const handleLogout = () => {
     logout();
 
@@ -133,8 +147,15 @@ function Navbar({
         >
           Logout
         </button>
-        <button className="icon-btn">
-          <FaMoon />
+        <button
+          className="icon-btn"
+          onClick={toggleTheme}
+        >
+          {darkMode ? (
+            <FaSun />
+          ) : (
+            <FaMoon />
+          )}
         </button>
 
         <button className="icon-btn">
