@@ -8,7 +8,10 @@ import Members from "../pages/members/Members";
 import EmployeeList from "../pages/employees/EmployeeList";
 import EmployeeProfile from "../pages/employees/EmployeeProfile";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
+import DashboardRouter from "../pages/dashboard/DashboardRouter";
 import Subscription from "../pages/subscription/Subscription";
+import SecurityMonitoring from "../pages/security/SecurityMonitoring";
+import Settings from "../pages/settings/Settings";
 function AppRoutes() {
   return (
     <Routes>
@@ -57,7 +60,7 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminRoute>
-              <Dashboard />
+              <DashboardRouter />
             </AdminRoute>
           </ProtectedRoute>
         }
@@ -67,6 +70,24 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Subscription />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/security"
+        element={
+          <ProtectedRoute>
+            <AdminRoute>
+              <SecurityMonitoring />
+            </AdminRoute>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <Settings />
           </ProtectedRoute>
         }
       />

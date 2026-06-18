@@ -100,3 +100,38 @@ class LoginResponse(BaseModel):
     access_token: str
     token_type: str
     user: UserResponse
+
+
+class SecurityEventResponse(BaseModel):
+    id: int
+    user_email: str
+    company: str | None = None
+    event_type: str
+    description: str
+    risk_points: int
+    severity: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class SecuritySummaryResponse(BaseModel):
+    alerts_today: int
+    open_alerts: int
+    resolved_alerts: int
+    critical_alerts: int
+
+
+class RiskUserResponse(BaseModel):
+    user_email: str
+    company: str | None = None
+    risk_score: int
+    risk_level: str
+
+
+class RiskCompanyResponse(BaseModel):
+    company: str
+    risk_score: int
+    user_count: int
+    risk_level: str

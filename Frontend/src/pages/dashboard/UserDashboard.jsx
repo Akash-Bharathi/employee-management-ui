@@ -79,7 +79,7 @@ function Dashboard() {
                                 to="/subscription"
                                 className="settings-link"
                             >
-                                Settings
+                                Subscription
                             </Link>{" "}
                             to unlock dashboard analytics,
                             charts, and KPIs.

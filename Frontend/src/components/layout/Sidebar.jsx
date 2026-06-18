@@ -1,15 +1,4 @@
-import {
-    FaChartPie,
-    FaUsers,
-    FaBuilding,
-    FaClock,
-    FaIndustry,
-    FaEnvelopeOpenText,
-    FaClipboardList,
-    FaCog,
-    FaChevronDown,
-    FaSignOutAlt,
-} from "react-icons/fa";
+import { FaChartPie, FaUsers, FaBuilding, FaClock, FaIndustry, FaEnvelopeOpenText, FaClipboardList, FaCog, FaRegCreditCard, FaShieldAlt, FaChevronDown, FaSignOutAlt, } from "react-icons/fa";
 import { useAuthContext } from "../../context/AuthContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
@@ -59,11 +48,24 @@ function Sidebar({
             path: "/audit-logs",
         },
         {
+            label: "Subscription",
+            icon: <FaRegCreditCard />,
+            path: "/subscription",
+        },
+        {
             label: "Settings",
             icon: <FaCog />,
-            path: "/Subscription",
+            path: "/settings",
         },
     ];
+
+    if (user?.role === "admin") {
+        menuItems.splice(menuItems.length - 1, 0, {
+            label: "Security Monitoring",
+            icon: <FaShieldAlt />,
+            path: "/security",
+        });
+    }
 
     const handleLogout = () => {
         logout();

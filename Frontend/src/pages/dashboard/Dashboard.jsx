@@ -20,50 +20,55 @@ import {
 } from "recharts";
 function Dashboard() {
     const { user } = useAuthContext();
-    // const attendanceData = [
-    //     { month: "Jan", attendance: 88 },
-    //     { month: "Feb", attendance: 91 },
-    //     { month: "Mar", attendance: 89 },
-    //     { month: "Apr", attendance: 94 },
-    //     { month: "May", attendance: 92 },
-    //     { month: "Jun", attendance: 96 },
-    // ];
-    const departmentData = [
-        {
-            department: "IT",
-            employees: 6,
-        },
-        {
-            department: "HR",
-            employees: 4,
-        },
-        {
-            department: "Finance",
-            employees: 3,
-        },
-        {
-            department: "Sales",
-            employees: 5,
-        },
-        {
-            department: "Operations",
-            employees: 5,
-        },
-    ];
-    const statusData = [
-        {
-            name: "Active",
-            value: 17,
-        },
-        {
-            name: "Inactive",
-            value: 4,
-        },
-        {
-            name: "On Leave",
-            value: 2,
-        },
-    ];
+    const { employees } = useEmployees();
+
+    const departmentData =
+        Object.values(
+            employees.reduce(
+                (acc, employee) => {
+                    const department =
+                        employee.department ||
+                        "Unknown";
+
+                    if (!acc[department]) {
+                        acc[department] = {
+                            department,
+                            employees: 0,
+                        };
+                    }
+
+                    acc[department]
+                        .employees++;
+
+                    return acc;
+                },
+                {}
+            )
+        );
+    const statusCounts =
+        employees.reduce(
+            (acc, employee) => {
+                const status =
+                    employee.status ||
+                    "Unknown";
+
+                acc[status] =
+                    (acc[status] || 0) + 1;
+
+                return acc;
+            },
+            {}
+        );
+
+    const statusData =
+        Object.entries(
+            statusCounts
+        ).map(
+            ([name, value]) => ({
+                name,
+                value,
+            })
+        );
 
     const STATUS_COLORS = [
         "#22c55e", // green
@@ -86,75 +91,46 @@ function Dashboard() {
         { name: '06-15', absent: 4, onLeave: 6, present: 13 },
         { name: '06-16', absent: 2, onLeave: 4, present: 17 },
     ];
-    const { employees } = useEmployees();
-    const navigate = useNavigate();
-    const roleData = [
-        {
-            role: "Dev",
-            count: 4,
-        },
-        {
-            role: "Developer",
-            count: 4,
-        },
-        {
-            role: "HR",
-            count: 2,
-        },
-        {
-            role: "HR",
-            count: 1,
-        },
-        {
-            role: "Team Lead",
-            count: 1,
-        },
-        {
-            role: "Cloud Engineer",
-            count: 1,
-        },
-        {
-            role: "Devops",
-            count: 1,
-        },
-        {
-            role: "Recruiter",
-            count: 1,
-        },
-        {
-            role: "HR Manager",
-            count: 1,
-        },
-        {
-            role: "AI Engineer",
-            count: 1,
-        },
-        {
-            role: "Ui/UX Designer",
-            count: 1,
-        },
-        {
-            role: "Admin",
-            count: 1,
-        },
-        {
-            role: "admin",
-            count: 1,
-        },
-        {
-            role: "Scrummaster",
-            count: 1,
-        },
-        {
-            role: "Test Engineer",
-            count: 1,
-        },
-        {
-            role: "Sales",
-            count: 1,
-        },
+    const totalEmployees =
+        employees?.length || 0;
 
-    ];
+    const activeEmployees =
+        employees?.filter(
+            (employee) =>
+                employee.status
+                    ?.toLowerCase() === "active"
+        ).length || 0;
+
+    const totalDepartments =
+        new Set(
+            employees?.map(
+                (employee) =>
+                    employee.department
+            )
+        ).size;
+    const navigate = useNavigate();
+    const roleData =
+        Object.values(
+            employees.reduce(
+                (acc, employee) => {
+                    const role =
+                        employee.role ||
+                        "Unknown";
+
+                    if (!acc[role]) {
+                        acc[role] = {
+                            role,
+                            count: 0,
+                        };
+                    }
+
+                    acc[role].count++;
+
+                    return acc;
+                },
+                {}
+            )
+        );
 
     return (
         <MainLayout>
@@ -184,19 +160,19 @@ function Dashboard() {
 
                     <div className="stat-card">
                         <h4>Total Employees</h4>
-                        <h2>23</h2>
+                        <h2>{totalEmployees}</h2>
                         <h4>Company workforce</h4>
                     </div>
 
                     <div className="stat-card">
                         <h4>Active Employees</h4>
-                        <h2>17</h2>
+                        <h2>{activeEmployees}</h2>
                         <h4>Currently active</h4>
                     </div>
 
                     <div className="stat-card">
                         <h4>Total Departments</h4>
-                        <h2>16</h2>
+                        <h2>{totalDepartments}</h2>
                         <h4>Organization units</h4>
                     </div>
 

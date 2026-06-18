@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
 import { ThemeProvider } from "./context/ThemeContext";
 import "./index.css";
-
+import { SubscriptionProvider } from "./context/SubscriptionContext";
 import { AuthProvider } from "./context/AuthContext";
 import { EmployeeProvider } from "./context/EmployeeContext";
 ReactDOM.createRoot(
@@ -18,8 +18,9 @@ ReactDOM.createRoot(
 
       <AuthProvider>
         <EmployeeProvider>
-          <App />
-
+          <SubscriptionProvider>
+            <App />
+          </SubscriptionProvider>
           <ToastContainer
             position="top-right"
             autoClose={3000}

@@ -53,3 +53,46 @@ class User(Base):
         DateTime,
         default=datetime.utcnow
     )
+class SecurityEvent(Base):
+    __tablename__ = "security_events"
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
+
+    user_email = Column(
+        String,
+        nullable=False
+    )
+
+    company = Column(
+        String,
+        nullable=True
+    )
+
+    event_type = Column(
+        String,
+        nullable=False
+    )
+
+    description = Column(
+        String,
+        nullable=False
+    )
+
+    risk_points = Column(
+        Integer,
+        default=0
+    )
+
+    severity = Column(
+        String,
+        nullable=False
+    )
+
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow
+    )

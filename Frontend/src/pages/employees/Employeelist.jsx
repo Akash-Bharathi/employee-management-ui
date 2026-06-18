@@ -5,12 +5,13 @@ import MainLayout from "../../components/layout/MainLayout";
 import "./EmployeeList.css";
 import AddEmployeeModal from "../../components/employees/AddEmployeeModal";
 import { useAuthContext } from "../../context/AuthContext";
-
+import { useSubscription } from "../../context/SubscriptionContext";
+import { toast } from "react-toastify";
 function EmployeeList() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedDepartment, setSelectedDepartment] = useState("All Departments");
-    
+
     // --- PAGINATION STATES ---
     const [currentPage, setCurrentPage] = useState(1);
     const ITEMS_PER_PAGE = 5; // Change this to 10, 15, etc. based on preference
@@ -18,9 +19,34 @@ function EmployeeList() {
     const navigate = useNavigate();
     const { user } = useAuthContext();
     const { employees, loading, addEmployee } = useEmployees();
+    const { planDetails } =
+        useSubscription();
 
-    const handleAddEmployee = (newEmployee) => {
+    const handleAddEmployee = (
+        newEmployee
+    ) => {
+
+        const employeeLimit =
+            planDetails.maxEmployees;
+
+        if (
+            employeeLimit !== Infinity &&
+            employees.length >=
+            employeeLimit
+        ) {
+
+            toast.error(
+                `You have reached the employee limit (${employeeLimit}) for your current subscription plan.`
+            );
+
+            return;
+        }
+
         addEmployee(newEmployee);
+
+        toast.success(
+            "Employee added successfully"
+        );
     };
 
     const getInitials = (name) => {
@@ -32,8 +58,8 @@ function EmployeeList() {
     const filteredEmployees = employees.filter(emp => {
         if (!emp.name || emp.name.trim() === "") return false; // Guard empty records
 
-        const matchesSearch = emp.name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                             emp.email?.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = emp.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            emp.email?.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesDept = selectedDepartment === "All Departments" || emp.department === selectedDepartment;
         return matchesSearch && matchesDept;
     });
@@ -41,7 +67,7 @@ function EmployeeList() {
     // --- PAGINATION LOGIC ---
     const totalItems = filteredEmployees.length;
     const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-    
+
     // Slice data to only display the current page slice
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
@@ -90,16 +116,16 @@ function EmployeeList() {
                     <div className="table-controls-bar">
                         <div className="search-input-wrapper">
                             <span className="search-icon">🔍</span>
-                            <input 
-                                type="text" 
-                                placeholder="Search employees..." 
+                            <input
+                                type="text"
+                                placeholder="Search employees..."
                                 value={searchQuery}
                                 onChange={handleSearchChange}
                                 className="search-field"
                             />
                         </div>
-                        
-                        <select 
+
+                        <select
                             className="department-select"
                             value={selectedDepartment}
                             onChange={handleDeptChange}
@@ -175,9 +201,9 @@ function EmployeeList() {
                                     <span className="pagination-info">
                                         Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, totalItems)} of {totalItems} entries
                                     </span>
-                                    
+
                                     <div className="pagination-buttons">
-                                        <button 
+                                        <button
                                             className="page-nav-btn"
                                             onClick={() => handlePageChange(currentPage - 1)}
                                             disabled={currentPage === 1}
@@ -195,7 +221,7 @@ function EmployeeList() {
                                             </button>
                                         ))}
 
-                                        <button 
+                                        <button
                                             className="page-nav-btn"
                                             onClick={() => handlePageChange(currentPage + 1)}
                                             disabled={currentPage === totalPages}
@@ -209,7 +235,7 @@ function EmployeeList() {
                     )}
                 </div>
             </div>
-            
+
             {user?.role === "admin" && (
                 <AddEmployeeModal
                     isOpen={isModalOpen}
