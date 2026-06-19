@@ -53,6 +53,8 @@ class User(Base):
         DateTime,
         default=datetime.utcnow
     )
+
+
 class SecurityEvent(Base):
     __tablename__ = "security_events"
 
@@ -90,6 +92,10 @@ class SecurityEvent(Base):
     severity = Column(
         String,
         nullable=False
+    )
+    status = Column(
+        String,
+        default="OPEN"
     )
 
     created_at = Column(

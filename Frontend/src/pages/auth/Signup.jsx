@@ -155,7 +155,7 @@ function Signup() {
     }
     
 
-    setError("");
+    setErrors({});
 
     if (
       formData.password !==

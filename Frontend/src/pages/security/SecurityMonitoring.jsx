@@ -2,7 +2,7 @@ import MainLayout from "../../components/layout/MainLayout";
 import "./SecurityMonitoring.css";
 import { useEffect, useState } from "react";
 import { FaShieldAlt } from "react-icons/fa";
-import { getSecuritySummary, getTopRiskUsers, getTopRiskCompanies, getRecentSecurityEvents } from "../../services/securityService";
+import { getSecuritySummary, getTopRiskUsers, getTopRiskCompanies, getRecentSecurityEvents, resolveSecurityEvent } from "../../services/securityService";
 
 function SecurityMonitoring() {
 
@@ -17,6 +17,26 @@ function SecurityMonitoring() {
 
     const [riskCompanies, setRiskCompanies] =
         useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const EVENTS_PER_PAGE = 5;
+    const handleResolveAlert = async (eventId) => {
+        try {
+            await resolveSecurityEvent(eventId);
+
+            const eventsData =
+                await getRecentSecurityEvents();
+
+            const summaryData =
+                await getSecuritySummary();
+
+            setEvents(eventsData);
+            setSummary(summaryData);
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
 
@@ -43,6 +63,18 @@ function SecurityMonitoring() {
         loadData();
 
     }, []);
+    const totalPages = Math.ceil(
+        events.length / EVENTS_PER_PAGE
+    );
+
+    const startIndex =
+        (currentPage - 1) * EVENTS_PER_PAGE;
+
+    const currentEvents =
+        events.slice(
+            startIndex,
+            startIndex + EVENTS_PER_PAGE
+        );
 
     return (
         <MainLayout>
@@ -237,7 +269,7 @@ function SecurityMonitoring() {
 
                         ) : (
 
-                            events.map((event) => (
+                            currentEvents.map((event) => (
 
                                 <div
                                     key={event.id}
@@ -256,7 +288,27 @@ function SecurityMonitoring() {
 
                                     </div>
 
+
                                     <div className="event-meta">
+                                        <div
+                                            className={`event-status ${event.status === "OPEN"
+                                                ? "status-open"
+                                                : "status-resolved"
+                                                }`}
+                                        >
+                                            {event.status}
+                                        </div>
+                                        {event.status === "OPEN" && (
+                                            <button
+                                                className="resolve-btn"
+                                                onClick={() =>
+                                                    handleResolveAlert(event.id)
+                                                }
+                                            >
+                                                Resolve
+                                            </button>
+                                        )}
+
 
                                         <div className="event-date">
                                             {new Date(
@@ -278,6 +330,55 @@ function SecurityMonitoring() {
                             ))
 
                         )}
+                        <div className="pagination">
+                            <button
+                                className="pagination-btn"
+                                disabled={currentPage === 1}
+                                onClick={() =>
+                                    setCurrentPage(
+                                        currentPage - 1
+                                    )
+                                }
+                            >
+                                Previous
+                            </button>
+
+                            <div className="pagination-pages">
+                                {Array.from(
+                                    { length: totalPages },
+                                    (_, index) => (
+                                        <button
+                                            key={index}
+                                            className={`page-btn ${currentPage === index + 1
+                                                    ? "active"
+                                                    : ""
+                                                }`}
+                                            onClick={() =>
+                                                setCurrentPage(
+                                                    index + 1
+                                                )
+                                            }
+                                        >
+                                            {index + 1}
+                                        </button>
+                                    )
+                                )}
+                            </div>
+
+                            <button
+                                className="pagination-btn"
+                                disabled={
+                                    currentPage === totalPages
+                                }
+                                onClick={() =>
+                                    setCurrentPage(
+                                        currentPage + 1
+                                    )
+                                }
+                            >
+                                Next
+                            </button>
+                        </div>
 
                     </div>
                 </div>

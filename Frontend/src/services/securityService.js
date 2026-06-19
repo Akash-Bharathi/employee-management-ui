@@ -93,3 +93,17 @@ export const getRecentSecurityEvents =
         return await response.json();
     };
 
+export const resolveSecurityEvent = async (eventId) => {
+    const response = await fetch(
+        `${API_URL}/security/events/${eventId}/resolve`,
+        {
+            method: "PUT",
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to resolve alert");
+    }
+
+    return response.json();
+};

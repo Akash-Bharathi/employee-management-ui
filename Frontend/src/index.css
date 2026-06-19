@@ -1,26 +1,20 @@
-/* ==========================
-   DARK THEME
-========================== */
 
 body.dark-theme {
   background: #0f172a;
   color: #f8fafc;
 }
 
-/* Main page background */
 
 body.dark-theme main {
   background: #0f172a !important;
 }
 
-/* Navbar */
 
 body.dark-theme .navbar {
   background: #1e293b;
   border-bottom: 1px solid #334155;
 }
 
-/* Sidebar */
 
 body.dark-theme .sidebar {
   background: #1e293b;
@@ -44,7 +38,6 @@ body.dark-theme .sidebar-link.active {
   color: white;
 }
 
-/* Cards */
 
 body.dark-theme .chart-card,
 body.dark-theme .stat-card,
@@ -60,7 +53,6 @@ body.dark-theme .analytics-card {
   color: #f8fafc;
 }
 
-/* Tables */
 
 body.dark-theme table {
   background: #1e293b;
@@ -76,7 +68,6 @@ body.dark-theme td {
   border-color: #334155;
 }
 
-/* Inputs */
 
 body.dark-theme input,
 body.dark-theme select,
@@ -90,14 +81,12 @@ body.dark-theme input::placeholder {
   color: #94a3b8;
 }
 
-/* Modals */
 
 body.dark-theme .employee-modal {
   background: #1e293b;
   color: white;
 }
 
-/* Headings */
 
 body.dark-theme h1,
 body.dark-theme h2,
@@ -106,7 +95,6 @@ body.dark-theme h4 {
   color: #f8fafc;
 }
 
-/* Paragraphs */
 
 body.dark-theme p,
 body.dark-theme span,
@@ -114,7 +102,6 @@ body.dark-theme label {
   color: #cbd5e1;
 }
 
-/* Navbar buttons */
 
 body.dark-theme .icon-btn {
   background: #334155;

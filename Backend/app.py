@@ -11,19 +11,17 @@ from schemas import LoginRequest
 from schemas import LoginResponse
 from auth import verify_password
 from auth import create_access_token
-from models import User
 from schemas import SignupRequest
 from schemas import UserResponse
 from typing import Optional
 from auth import hash_password
-from models import User
-from models import SecurityEvent
+from models import User, SecurityEvent
 from schemas import SecurityEventResponse
 from schemas import RiskUserResponse
 from schemas import RiskCompanyResponse
 from schemas import SecuritySummaryResponse
+from datetime import datetime, timedelta, timezone
 
-import models
 
 def calculate_risk_level(score: int):
 
@@ -34,6 +32,8 @@ def calculate_risk_level(score: int):
         return "MEDIUM"
 
     return "LOW"
+
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -240,6 +240,8 @@ def activate_member(
     return {
         "message": "User activated"
     }
+
+
 @app.get(
     "/security/events",
     response_model=List[SecurityEventResponse]
@@ -258,6 +260,8 @@ def get_security_events(
     )
 
     return events
+
+
 @app.get(
     "/security/risk-users",
     response_model=List[RiskUserResponse]
@@ -315,6 +319,7 @@ def get_risk_users(
     )
 
     return results[:10]
+
 
 @app.get(
     "/security/risk-companies",
@@ -391,40 +396,7 @@ def get_risk_companies(
 
     return results[:10]
 
-@app.get(
-    "/security/summary",
-    response_model=
-    SecuritySummaryResponse
-)
-def get_security_summary(
-    db: Session = Depends(get_db)
-):
 
-    alerts = db.query(
-        SecurityEvent
-    ).count()
-
-    critical = (
-        db.query(
-            SecurityEvent
-        )
-        .filter(
-            SecurityEvent.severity
-            == "HIGH"
-        )
-        .count()
-    )
-
-    return {
-        "alerts_today":
-            alerts,
-        "open_alerts":
-            critical,
-        "resolved_alerts":
-            0,
-        "critical_alerts":
-            critical
-    }
 @app.post("/security/unauthorized-access")
 def log_unauthorized_access(
     payload: dict,
@@ -446,13 +418,42 @@ def log_unauthorized_access(
     return {
         "message": "Unauthorized access logged"
     }
-@app.get("/security/summary")
+
+
+@app.get(
+    "/security/summary",
+    response_model=SecuritySummaryResponse
+)
 def get_security_summary(
     db: Session = Depends(get_db)
 ):
-
+    today_start = datetime.now(timezone.utc).replace(
+        hour=0,
+        minute=0,
+        second=0,
+        microsecond=0
+    )
     total_alerts = (
         db.query(SecurityEvent)
+        .filter(
+            SecurityEvent.created_at >= today_start
+        )
+        .count()
+    )
+
+    open_alerts = (
+        db.query(SecurityEvent)
+        .filter(
+            SecurityEvent.status == "OPEN"
+        )
+        .count()
+    )
+
+    resolved_alerts = (
+        db.query(SecurityEvent)
+        .filter(
+            SecurityEvent.status == "RESOLVED"
+        )
         .count()
     )
 
@@ -465,8 +466,34 @@ def get_security_summary(
     )
 
     return {
-        "alertsToday": total_alerts,
-        "openAlerts": total_alerts,
-        "resolvedAlerts": 0,
-        "criticalAlerts": critical_alerts
+        "alerts_today": total_alerts,
+        "open_alerts": open_alerts,
+        "resolved_alerts": resolved_alerts,
+        "critical_alerts": critical_alerts
+    }
+
+
+@app.put("/security/events/{event_id}/resolve")
+def resolve_security_event(
+    event_id: int,
+    db: Session = Depends(get_db)
+):
+    event = (
+        db.query(SecurityEvent)
+        .filter(SecurityEvent.id == event_id)
+        .first()
+    )
+
+    if not event:
+        raise HTTPException(
+            status_code=404,
+            detail="Security event not found"
+        )
+
+    event.status = "RESOLVED"
+
+    db.commit()
+
+    return {
+        "message": "Alert resolved successfully"
     }

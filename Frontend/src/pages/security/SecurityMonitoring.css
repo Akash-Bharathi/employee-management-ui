@@ -168,9 +168,93 @@
 
     font-size: 16px;
 }
+.status-open {
+    color: #fcd34d;
+    font-weight: 600;
+}
 
+.status-resolved {
+    color: #166534;
+    font-weight: 600;
+}
+
+.resolve-btn {
+    border: none;
+
+    padding: 8px 14px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+    background: #2563eb;
+    color: white;
+}
+.event-meta {
+    display: flex;
+    align-items: right;
+    gap: 12px;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.resolve-btn:hover {
+    background: #1d4ed8;
+}
 .security-events-card {
     grid-column: 1 / -1;
+}
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 20px;
+    padding-top: 16px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.pagination-pages {
+    display: flex;
+    gap: 8px;
+}
+
+.pagination-btn,
+.page-btn {
+    border: 1px solid #d1d5db;
+
+    background: white;
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: all 0.2s ease;
+}
+
+.pagination-btn:hover,
+.page-btn:hover {
+    background: #f3f4f6;
+}
+
+.page-btn.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 @media (max-width: 1100px) {

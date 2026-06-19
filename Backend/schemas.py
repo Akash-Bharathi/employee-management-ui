@@ -110,6 +110,7 @@ class SecurityEventResponse(BaseModel):
     description: str
     risk_points: int
     severity: str
+    status: str
     created_at: datetime
 
     class Config:
