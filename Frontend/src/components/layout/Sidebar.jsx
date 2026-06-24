@@ -2,6 +2,7 @@ import { FaChartPie, FaUsers, FaBuilding, FaClock, FaIndustry, FaEnvelopeOpenTex
 import { useAuthContext } from "../../context/AuthContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { FaChartLine } from "react-icons/fa";
 import "./Sidebar.css";
 
 function Sidebar({
@@ -31,6 +32,11 @@ function Sidebar({
             label: "Attendance",
             icon: <FaClock />,
             path: "/attendance",
+        },
+        {
+            label: "Forecasting",
+            icon: <FaChartLine />,
+            path: "/forecast",
         },
         {
             label: "Companies",

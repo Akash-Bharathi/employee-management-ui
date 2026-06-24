@@ -20,6 +20,7 @@ from schemas import SecurityEventResponse
 from schemas import RiskUserResponse
 from schemas import RiskCompanyResponse
 from schemas import SecuritySummaryResponse
+from forecast_routes import router as forecast_router
 from datetime import datetime, timedelta, timezone
 
 
@@ -47,6 +48,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(forecast_router)
 
 
 @app.get("/")

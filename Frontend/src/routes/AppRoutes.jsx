@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import AdminRoute from "../components/layout/AdminRoute";
+import ForecastDashboard from "../pages/forecast/ForecastDashboard";
 import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 import Dashboard from "../pages/dashboard/Dashboard";
@@ -70,6 +71,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Subscription />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/forecast"
+        element={
+          <ProtectedRoute>
+            <ForecastDashboard />
           </ProtectedRoute>
         }
       />
